@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Admin — Página Inicial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Jomhuria&family=Joan&family=Instrument+Sans:wght@500&display=swap" rel="stylesheet">
+<style>
+  /* Tokens usados SOMENTE nesta página (fontes e cores da Página Inicial) */
+  :root {
+    --dali-font-display: 'Jomhuria', serif;
+    --dali-font-serif: 'Joan', serif;
+    --dali-font-menu: 'Instrument Sans', sans-serif;
+    --dali-color-banner-bg: #f3f3f3;
+    --dali-color-gray-block: #d9d9d9;
+    --dali-color-button-bg: rgba(201, 201, 201, 0.2);
+
+    --admin-bg: #ffffff;
+    --admin-text: #1a1a1a;
+    --admin-border: #e2e2e2;
+    --admin-accent: #008df8;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: system-ui, sans-serif;
+    background: var(--admin-bg);
+    color: var(--admin-text);
+  }
+
+  .admin-inicial { max-width: 860px; margin: 0 auto; padding: 32px 24px 80px; }
+  .admin-inicial__header { margin-bottom: 32px; }
+  .admin-inicial__header h1 { font-family: var(--dali-font-menu); font-size: 24px; margin: 0 0 4px; }
+  .admin-inicial__header p { color: #666; margin: 0; font-size: 14px; }
+
+  .admin-inicial__section { border: 1px solid var(--admin-border); border-radius: 8px; padding: 20px; margin-bottom: 20px; }
+  .admin-inicial__section h2 { font-size: 16px; margin: 0 0 16px; }
+
+  .admin-inicial__field { margin-bottom: 14px; }
+  .admin-inicial__field label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+  .admin-inicial__field input[type="text"],
+  .admin-inicial__field textarea {
+    width: 100%; padding: 8px 10px; border: 1px solid var(--admin-border);
+    border-radius: 6px; font-size: 14px; font-family: inherit;
+  }
+  .admin-inicial__field textarea { min-height: 70px; resize: vertical; }
+  .admin-inicial__row { display: flex; gap: 12px; }
+  .admin-inicial__row .admin-inicial__field { flex: 1; }
+
+  .admin-inicial__image-field { display: flex; align-items: center; gap: 12px; }
+  .admin-inicial__image-preview {
+    width: 72px; height: 72px; object-fit: cover; border-radius: 6px;
+    background: var(--dali-color-gray-block); flex-shrink: 0;
+  }
+  .admin-inicial__image-field input[type="file"] { font-size: 13px; }
+
+  .admin-inicial__actions { position: sticky; bottom: 0; background: var(--admin-bg); padding: 16px 0; border-top: 1px solid var(--admin-border); display: flex; justify-content: flex-end; gap: 12px; }
+  .admin-inicial__save {
+    background: var(--admin-accent); color: #fff; border: none; border-radius: 20px;
+    padding: 10px 24px; font-size: 14px; font-weight: 600; cursor: pointer;
+  }
+  .admin-inicial__save:disabled { opacity: 0.6; cursor: default; }
+  .admin-inicial__status { font-size: 13px; align-self: center; color: #666; }
+</style>
+</head>
+<body>
+
+<div class="admin-inicial">
+  <div class="admin-inicial__header">
+    <h1>Cadastrar Página Inicial</h1>
+    <p>Edite os textos e imagens da nova página "Inicial". As alterações são salvas no Supabase.</p>
+  </div>
+
+  <form id="form-pagina-inicial">
+
+    <section class="admin-inicial__section">
+      <h2>Menu</h2>
+      <div class="admin-inicial__image-field admin-inicial__field">
+        <img class="admin-inicial__image-preview" id="preview-logo_url" alt="Logo" />
+        <div>
+          <label for="file-logo_url">Logo</label>
+          <input type="file" id="file-logo_url" data-campo="logo_url" accept="image/*" />
+        </div>
+      </div>
+      <div class="admin-inicial__row">
+        <div class="admin-inicial__field">
+          <label>Item 1 — texto</label>
+          <input type="text" data-campo="menu_sobre_nos_label" />
+        </div>
+        <div class="admin-inicial__field">
+          <label>Item 1 — link</label>
+          <input type="text" data-campo="menu_sobre_nos_link" />
+        </div>
+      </div>
+      <div class="admin-inicial__row">
+        <div class="admin-inicial__field">
+          <label>Item 2 — texto</label>
+          <input type="text" data-campo="menu_viagens_label" />
+        </div>
+        <div class="admin-inicial__field">
+          <label>Item 2 — link</label>
+          <input type="text" data-campo="menu_viagens_link" />
+        </div>
+      </div>
+      <div class="admin-inicial__row">
+        <div class="admin-inicial__field">
+          <label>Item 3 — texto</label>
+          <input type="text" data-campo="menu_negocios_label" />
+        </div>
+        <div class="admin-inicial__field">
+          <label>Item 3 — link</label>
+          <input type="text" data-campo="menu_negocios_link" />
+        </div>
+      </div>
+      <div class="admin-inicial__row">
+        <div class="admin-inicial__field">
+          <label>Item 4 — texto</label>
+          <input type="text" data-campo="menu_contato_label" />
+        </div>
+        <div class="admin-inicial__field">
+          <label>Item 4 — link</label>
+          <input type="text" data-campo="menu_contato_link" />
+        </div>
+      </div>
+    </section>
+
+    <section class="admin-inicial__section">
+      <h2>Hero</h2>
+      <div class="admin-inicial__image-field admin-inicial__field">
+        <img class="admin-inicial__image-preview" id="preview-hero_bg_url" alt="Fundo do hero" />
+        <div>
+          <label for="file-hero_bg_url">Imagem de fundo</label>
+          <input type="file" id="file-hero_bg_url" data-campo="hero_bg_url" accept="image/*" />
+        </div>
+      </div>
+      <div class="admin-inicial__row">
+        <div class="admin-inicial__field">
+          <label>Título — linha 1</label>
+          <input type="text" data-campo="hero_titulo_linha1" />
+        </div>
+        <div class="admin-inicial__field">
+          <label>Título — linha 2</label>
+          <input type="text" data-campo="hero_titulo_linha2" />
+        </div>
+      </div>
+      <div class="admin-inicial__row">
+        <div class="admin-inicial__field">
+          <label>Local</label>
+          <input type="text" data-campo="hero_local" />
+        </div>
+        <div class="admin-inicial__field">
+          <label>Tipo</label>
+          <input type="text" data-campo="hero_tipo" />
+        </div>
+        <div class="admin-inicial__field">
+          <label>Data</label>
+          <input type="text" data-campo="hero_data" />
+        </div>
+      </div>
+      <div class="admin-inicial__row">
+        <div class="admin-inicial__field">
+          <label>Botão — texto</label>
+          <input type="text" data-campo="hero_botao_texto" />
+        </div>
+        <div class="admin-inicial__field">
+          <label>Botão — link</label>
+          <input type="text" data-campo="hero_botao_link" />
+        </div>
+      </div>
+    </section>
+
+    <section class="admin-inicial__section">
+      <h2>Card "Próxima experiência"</h2>
+      <div class="admin-inicial__image-field admin-inicial__field">
+        <img class="admin-inicial__image-preview" id="preview-hero_card_imagem_url" alt="Card" />
+        <div>
+          <label for="file-hero_card_imagem_url">Imagem do card</label>
+          <input type="file" id="file-hero_card_imagem_url" data-campo="hero_card_imagem_url" accept="image/*" />
+        </div>
+      </div>
+      <div class="admin-inicial__field">
+        <label>Rótulo (ex: "Próxima")</label>
+        <input type="text" data-campo="hero_card_label" />
+      </div>
+      <div class="admin-inicial__field">
+        <label>Título do card</label>
+        <input type="text" data-campo="hero_card_titulo" />
+      </div>
+      <div class="admin-inicial__row">
+        <div class="admin-inicial__field">
+          <label>Tag 1</label>
+          <input type="text" data-campo="hero_card_tag1" />
+        </div>
+        <div class="admin-inicial__field">
+          <label>Tag 2</label>
+          <input type="text" data-campo="hero_card_tag2" />
+        </div>
+      </div>
+      <div class="admin-inicial__field">
+        <label>Link do card</label>
+        <input type="text" data-campo="hero_card_link" />
+      </div>
+    </section>
+
+    <section class="admin-inicial__section">
+      <h2>Banner</h2>
+      <div class="admin-inicial__row">
+        <div class="admin-inicial__field">
+          <label>Título — linha 1</label>
+          <input type="text" data-campo="banner_titulo_linha1" />
+        </div>
+        <div class="admin-inicial__field">
+          <label>Título — linha 2</label>
+          <input type="text" data-campo="banner_titulo_linha2" />
+        </div>
+      </div>
+      <div class="admin-inicial__field">
+        <label>Texto</label>
+        <textarea data-campo="banner_texto"></textarea>
+      </div>
+      <div class="admin-inicial__image-field admin-inicial__field">
+        <img class="admin-inicial__image-preview" id="preview-banner_imagem_url" alt="Ícone do banner" />
+        <div>
+          <label for="file-banner_imagem_url">Imagem/ícone</label>
+          <input type="file" id="file-banner_imagem_url" data-campo="banner_imagem_url" accept="image/*" />
+        </div>
+      </div>
+    </section>
+
+    <div class="admin-inicial__actions">
+      <span class="admin-inicial__status" id="status"></span>
+      <button type="submit" class="admin-inicial__save" id="btn-salvar">Salvar alterações</button>
+    </div>
+  </form>
+</div>
+
+<script type="module">
+  import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+
+  const SUPABASE_URL = 'https://SEU-PROJETO.supabase.co';
+  const SUPABASE_ANON_KEY = 'SUA_ANON_KEY';
+  const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  const BUCKET = 'pagina-inicial-imagens';
+  const form = document.getElementById('form-pagina-inicial');
+  const status = document.getElementById('status');
+  const btnSalvar = document.getElementById('btn-salvar');
+
+  const camposTexto = form.querySelectorAll('[data-campo]:not(input[type="file"])');
+  const camposImagem = form.querySelectorAll('input[type="file"][data-campo]');
+
+  let registro = null;
+
+  async function carregar() {
+    const { data, error } = await supabase
+      .from('pagina_inicial')
+      .select('*')
+      .eq('id', 1)
+      .single();
+
+    if (error) {
+      status.textContent = 'Erro ao carregar: ' + error.message;
+      return;
+    }
+    registro = data;
+
+    camposTexto.forEach((el) => {
+      const campo = el.dataset.campo;
+      if (data[campo] != null) el.value = data[campo];
+    });
+    camposImagem.forEach((el) => {
+      const campo = el.dataset.campo;
+      const preview = document.getElementById('preview-' + campo);
+      if (preview && data[campo]) preview.src = data[campo];
+    });
+  }
+
+  async function uploadImagem(file, campo) {
+    const ext = file.name.split('.').pop();
+    const path = `inicial/${campo}-${Date.now()}.${ext}`;
+    const { error } = await supabase.storage.from(BUCKET).upload(path, file, {
+      upsert: true,
+      contentType: file.type,
+    });
+    if (error) throw error;
+    const { data } = supabase.storage.from(BUCKET).getPublicUrl(path);
+    return data.publicUrl;
+  }
+
+  camposImagem.forEach((input) => {
+    input.addEventListener('change', () => {
+      const file = input.files[0];
+      if (!file) return;
+      const preview = document.getElementById('preview-' + input.dataset.campo);
+      if (preview) preview.src = URL.createObjectURL(file);
+    });
+  });
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    btnSalvar.disabled = true;
+    status.textContent = 'Salvando...';
+
+    try {
+      const update = {};
+
+      camposTexto.forEach((el) => {
+        update[el.dataset.campo] = el.value;
+      });
+
+      for (const input of camposImagem) {
+        const file = input.files[0];
+        if (file) {
+          update[input.dataset.campo] = await uploadImagem(file, input.dataset.campo);
+        }
+      }
+
+      const { error } = await supabase.from('pagina_inicial').update(update).eq('id', 1);
+      if (error) throw error;
+
+      status.textContent = 'Salvo com sucesso.';
+    } catch (err) {
+      status.textContent = 'Erro ao salvar: ' + err.message;
+    } finally {
+      btnSalvar.disabled = false;
+    }
+  });
+
+  carregar();
+</script>
+
+</body>
+</html>
